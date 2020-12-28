@@ -57,10 +57,10 @@ class App extends Component {
         })
         .catch(error => this.setState({ error, status: Status.REJECTED }));
     }
-    window.scrollTo({
-      top: document.documentElement.scrollHeight,
+    window.scrollBy({
+      top: document.documentElement.scrollHeight - 130,
       behavior: 'smooth',
-    });
+    }, 500);
   }
 
   loadMoreHandler = () => {
