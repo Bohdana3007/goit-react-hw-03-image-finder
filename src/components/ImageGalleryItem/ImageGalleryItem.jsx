@@ -32,7 +32,7 @@ class ImageGalleryItem extends Component {
 
   render() {
     const { id, webformatURL, largeImageURL } = this.props.imageData;
-    const { openModal, largeSrc } = this.state;
+    const { openModal } = this.state;
     return (
       <>
         <li className={s.imageGalleryItem}>
@@ -40,11 +40,10 @@ class ImageGalleryItem extends Component {
             src={webformatURL}
             alt={id}
             className={s.image}
-            data-largeimg={largeImageURL}
             onClick={this.imageClickHandler}
           />
         </li>
-        {openModal && <Modal onClose={this.toggleModal} src={largeSrc} />}
+        {openModal && <Modal onClose={this.toggleModal} src={largeImageURL} />}
       </>
     );
   }
