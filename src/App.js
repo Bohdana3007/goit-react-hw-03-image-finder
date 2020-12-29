@@ -40,6 +40,12 @@ class App extends Component {
       this.setState({
         status: Status.PENDING,
       });
+    if (prevState.page !== this.state.page) {
+      window.scrollTo({
+      top: document.documentElement.scrollHeight,
+      behavior: 'smooth',
+    });
+  }
       Api.fetchImages(nextQueue, page)
         .then(data => {
           if (data.total < 1) {
@@ -57,10 +63,6 @@ class App extends Component {
         })
         .catch(error => this.setState({ error, status: Status.REJECTED }));
     }
-    window.scrollTo({
-      top: document.documentElement.scrollHeight,
-      behavior: 'smooth',
-    });
   }
 
   loadMoreHandler = () => {
