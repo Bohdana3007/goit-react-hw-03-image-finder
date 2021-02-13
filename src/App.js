@@ -17,19 +17,24 @@ const Status = {
 
 class App extends Component {
   state = {
-    gallery: [],
-    searchQueue: '',
+    query: "",
     page: 1,
+    pictures: [],
     status: Status.IDLE,
     error: null,
+    showModal: false,
+    modalContent: {
+     url: "",
+      alt: "",
+    }, 
   };
-
   formSubmitHandler = searchQueue => {
     this.setState({
       searchQueue,
       page: 1,
     });
   };
+  
 
   componentDidUpdate(prevProps, prevState) {
     const prevQueue = prevState.searchQueue;
@@ -40,12 +45,12 @@ class App extends Component {
       this.setState({
         status: Status.PENDING,
       });
-    if (prevState.page !== this.state.page) {
-      window.scrollTo({
-      top: document.documentElement.scrollHeight,
-      behavior: 'smooth',
-    });
-  }
+      if (prevState.page !== this.state.page) {
+        window.scrollTo({
+          top: document.documentElement.scrollHeight,
+          behavior: 'smooth',
+        });
+      }
       Api.fetchImages(nextQueue, page)
         .then(data => {
           if (data.total < 1) {
