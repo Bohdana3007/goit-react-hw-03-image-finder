@@ -7,8 +7,7 @@ import Searchbar from "./components/Searchbar";
 import ImageGallery from "./components/ImageGallery";
 import Modal from "./components/Modal";
 import API from "./services/pixabay-api";
-import waitingImg from './components/waiting.jpg';
-import errorImg from './components/error.gif';
+
 
 const modalRoot = document.querySelector("#modal-root");
 export default class App extends Component {
