@@ -1,20 +1,18 @@
-const API_KEY = '18969106-b552d166da3dfed7b4523ee16';
-
-function fetchImages(queue, page) {
+function fetchPictures(query, page) {
+  const BASE_URL = "https://pixabay.com/api/";
+  const API_KEY = "19028300-83b376d79bd6a99c9e2183deb";
   return fetch(
-    `https://pixabay.com/api/?q=${queue}&page=${page}&key=${API_KEY}&image_type=all&orientation=horizontal&per_page=12`,
-  ).then(response => {
-    if (response.ok) {
-      return response.json();
+    `${BASE_URL}?image_type=photo&orientation=horizontal&q=${query}&page=${page}&per_page=12&key=${API_KEY}`
+  ).then((res) => {
+    if (res.ok) {
+      return res.json();
     }
-    return Promise.reject(
-      new Error(`Не удалось найти картинки по запросу "${queue}"`),
-    );
+    return Promise.reject(new Error("Something is wrong, please try again"));
   });
 }
 
-const api = {
-  fetchImages,
+const API = {
+  fetchPictures,
 };
 
-export default api;
+export default API;
