@@ -1,52 +1,24 @@
-import { Component } from 'react';
-import s from './ImageGalleryItem.module.css';
-import Modal from '../Modal';
-import PropTypes from 'prop-types';
+import "./ImageGalleryItemStyles.css";
+import PropTypes from "prop-types";
 
-class ImageGalleryItem extends Component {
-  static propTypes = {
-    imageData: PropTypes.shape({
-      id: PropTypes.number,
-      webformatURL: PropTypes.string,
-      largeImageURL: PropTypes.string,
-    }),
-  };
-
-  state = {
-    openModal: false,
-    largeSrc: null,
-  };
-
-  imageClickHandler = e => {
-    this.setState({
-      largeSrc: e.target.dataset.largeimg,
-    });
-    this.toggleModal();
-  };
-
-  toggleModal = () => {
-    this.setState(prevState => {
-      return { openModal: !prevState.openModal };
-    });
-  };
-
-  render() {
-    const { id, webformatURL, largeImageURL } = this.props.imageData;
-    const { openModal } = this.state;
-    return (
-      <>
-        <li className={s.imageGalleryItem}>
-          <img
-            src={webformatURL}
-            alt={id}
-            className={s.image}
-            onClick={this.imageClickHandler}
-          />
-        </li>
-        {openModal && <Modal onClose={this.toggleModal} src={largeImageURL} />}
-      </>
-    );
-  }
-}
+const ImageGalleryItem = ({ id, url, tags, largeImgUrl }) => {
+  return (
+    <li className="ImageGalleryItem" key={id}>
+      <img
+        src={url}
+        alt={tags}
+        className="ImageGalleryItem-image"
+        data-url={largeImgUrl}
+      />
+    </li>
+  );
+};
 
 export default ImageGalleryItem;
+
+ImageGalleryItem.propTypes = {
+  id: PropTypes.string.isRequired,
+  url: PropTypes.string.isRequired,
+  tags: PropTypes.string.isRequired,
+  largeImgUrl: PropTypes.string.isRequired,
+};

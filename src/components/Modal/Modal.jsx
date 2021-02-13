@@ -1,64 +1,40 @@
-import { Component } from 'react';
-import s from './Modal.module.css';
-import Loader from 'react-loader-spinner';
-import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
-import PropTypes from 'prop-types';
+import "./ModalStyles.css";
+import { Component } from "react";
+import PropTypes from "prop-types";
 
-class Modal extends Component {
+export default class Modal extends Component {
   static propTypes = {
-    src: PropTypes.string.isRequired,
-    onClose: PropTypes.func.isRequired,
+    src: PropTypes.string,
+    alt: PropTypes.string,
+    onClose: PropTypes.func,
   };
 
-  state = {
-    loading: false,
-  };
-
-  toggleLoadind() {
-    this.setState(prevState => {
-      return { loading: !prevState.loading };
-    });
-  }
-  backdropHandler = ({ target, currentTarget }) => {
-    if (target === currentTarget) {
-      this.props.onClose();
-    }
-  };
   componentDidMount() {
-    this.setState({ loading: true });
-    window.addEventListener('keydown', this.handleKeyDown);
+    window.addEventListener("keydown", this.handleKeyDown);
   }
 
   componentWillUnmount() {
-    window.removeEventListener('keydown', this.handleKeyDown);
+    window.removeEventListener("keydown", this.handleKeyDown);
   }
 
-  handleKeyDown = e => {
-    if (e.code === 'Escape') {
+  handleKeyDown = (e) => {
+    if (e.code === "Escape") {
       this.props.onClose();
     }
   };
 
-  handleImageLoaded = () => {
-    this.setState({ loading: false });
+  hadleBackdropClick = (e) => {
+    if (e.target === e.currentTarget) {
+      this.props.onClose();
+    }
   };
-
   render() {
-    const { src, alt } = this.props;
     return (
-      <div className={s.overlay} onClick={this.backdropHandler}>
-        <img
-          className={s.modal}
-          src={src}
-          alt={alt}
-          onLoad={this.handleImageLoaded}
-        />
-        {this.state.loading && (
-          <Loader type="BallTriangle" color="#3f51b5" height={350} />
-        )}
+      <div className="Overlay" onClick={this.hadleBackdropClick}>
+        <div className="Modal">
+          <img src={this.props.src} alt={this.props.alt} />
+        </div>
       </div>
     );
   }
 }
-
-export default Modal;

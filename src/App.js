@@ -1,6 +1,8 @@
 import "./App.css";
+import "react-toastify/dist/ReactToastify.css";
 import { Component } from "react";
 import { createPortal } from "react-dom";
+import { ToastContainer } from "react-toastify";
 import Searchbar from "./components/Searchbar";
 import ImageGallery from "./components/ImageGallery";
 import Modal from "./components/Modal";
